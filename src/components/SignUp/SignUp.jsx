@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Login = () => {
+const SignUp = () => {
+    const [error, setError] = useState('');
+
+    const handleSignUp = (event) => {
+        event.preventDefault();
+
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        const confirm = form.confirm.value;
+        console.log(email, password, confirm)
+
+        if (password !== confirm) {
+            setError('Password did not match')
+        }
+        else if (password.length < 6) {
+            setError('Password must be at least 6 characters')
+        }
+    }
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
             <div className="bg-white p-8 rounded shadow-md w-full sm:w-96">
-                <h2 className="text-3xl font-bold text-center mb-4 text-gray-800">Login</h2>
-                <form >
+                <h2 className="text-3xl font-bold text-center mb-4 text-gray-800">Sign Up</h2>
+                <form onSubmit={handleSignUp}>
                     <div className="mb-4">
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                             Email
@@ -36,13 +54,13 @@ const Login = () => {
                             // onChange={handlePasswordChange}
                             required
                         />
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="confirm" className="block text-sm font-medium text-gray-700">
                             Confirm Password
                         </label>
                         <input
                             type="password"
-                            id="password"
-                            name='password'
+                            id="confirm"
+                            name='confirm'
                             className="mt-1 p-2 w-full rounded-md border border-gray-300 focus:ring focus:ring-indigo-300"
                             placeholder="********"
                             // value={password}
@@ -50,20 +68,20 @@ const Login = () => {
                             required
                         />
                     </div>
+                    <p className='text-red-700 mb-3'> {error}</p>
                     <div className="text-center">
                         <button
                             type="submit"
                             className="w-full bg-indigo-500 text-white p-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                         >
-                            Log In
+                            Sign Up
                         </button>
                     </div>
                 </form>
-                <p className='underline text-blue-500 mt-3 text-center'><Link to='/signup'>New to Amazon?</Link></p>
-
+                <p className='underline text-blue-500 mt-3 text-center'><Link to='/login'>Already Have an account?</Link></p>
                 <button
                     // onClick={handleGoogleLogin}
-                    className="w-full bg-red-500 mt-5 text-white p-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400"
+                    className="w-full bg-red-400 mt-5 text-white p-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400"
                 >
                     Login with Google
                 </button>
@@ -72,4 +90,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default SignUp;
