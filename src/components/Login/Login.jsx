@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../provider/AuthProvider';
 
 const Login = () => {
+    const [show, setShow] = useState(false);
+
     const { login } = useContext(AuthContext);
 
     const navigate = useNavigate();
@@ -52,13 +54,18 @@ const Login = () => {
                             Password
                         </label>
                         <input
-                            type="password"
+                            type={show ? 'text' : 'password'}
                             id="password"
                             name='password'
                             className="mt-1 p-2 w-full rounded-md border border-gray-300 focus:ring focus:ring-indigo-300"
                             placeholder="********"
                             required
                         />
+                        <p onClick={() => setShow(!show)}>
+                            {
+                                show ? <span>Hide</span> : <span>Show</span>
+                            }
+                        </p>
 
                     </div>
                     <div className="text-center">
