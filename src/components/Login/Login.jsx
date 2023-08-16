@@ -1,9 +1,15 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../provider/AuthProvider';
 
 const Login = () => {
     const { login } = useContext(AuthContext);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    console.log(location)
+
+    const from = location.state?.from?.pathname || '/';
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -11,10 +17,12 @@ const Login = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
+
         login(email, password)
             .then(result => {
                 console.log(result.user)
                 form.reset();
+                navigate(from, { replace: true })
             })
             .catch(error => {
                 console.log(error.message)
@@ -36,8 +44,6 @@ const Login = () => {
                             name='email'
                             className="mt-1 p-2 w-full rounded-md border border-gray-300 focus:ring focus:ring-indigo-300"
                             placeholder="you@example.com"
-                            // value={email}
-                            // onChange={handleEmailChange}
                             required
                         />
                     </div>
@@ -51,8 +57,6 @@ const Login = () => {
                             name='password'
                             className="mt-1 p-2 w-full rounded-md border border-gray-300 focus:ring focus:ring-indigo-300"
                             placeholder="********"
-                            // value={password}
-                            // onChange={handlePasswordChange}
                             required
                         />
 
