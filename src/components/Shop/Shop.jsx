@@ -13,11 +13,18 @@ const Shop = () => {
 
 
     //pagination-----------------------
-    const itemsPerPage = 10;
+    const [currentPage, setCurrentPge] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = useState(10);
+
     const totalPages = Math.ceil(totalProducts / itemsPerPage);
 
     const pageNumbers = [...Array(totalPages).keys()];
+    const options = [5, 10, 20];
 
+    const handleSelectChange = (event) => {
+        setItemsPerPage(parseInt(event.target.value));
+        setCurrentPge(0);
+    }
 
 
 
@@ -99,9 +106,26 @@ const Shop = () => {
 
             {/* pagination */}
             <div className="pagination">
+                <p>Current Page: {currentPage}</p>
                 {
-                    pageNumbers.map(number => <button key={number}>{number}</button>)
+                    pageNumbers.map(number => <button
+                        key={number}
+                        className={currentPage === number ? 'active' : ''}
+                        onClick={() => { setCurrentPge(number) }}
+                    >{number}</button>)
                 }
+
+                <select value={itemsPerPage} onChange={handleSelectChange}>
+                    {
+                        options.map(option => <option
+                            className='option'
+                            key={option}
+                            value={option}
+
+                        >{option}</option>)
+                    }
+
+                </select>
             </div>
         </>
     );

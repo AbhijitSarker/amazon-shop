@@ -33,3 +33,7 @@
     background: gainsboro;
     margin-right: 5px;
 }
+
+.pagination .active{
+    background-color: #FF9900;
+}
