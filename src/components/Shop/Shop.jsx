@@ -28,7 +28,7 @@ const Shop = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch(`http://localhost:3000/products?page=${currentPage}&limit=${itemsPerPage}`);
+            const response = await fetch(`https://amazon-server-rho.vercel.app/products?page=${currentPage}&limit=${itemsPerPage}`);
             const data = await response.json();
             setProducts(data);
         }
@@ -36,11 +36,6 @@ const Shop = () => {
     }, [currentPage, itemsPerPage])
 
 
-    // useEffect(() => {
-    //     fetch('http://localhost:3000/products')
-    //         .then(res => res.json())
-    //         .then(data => setProducts(data))
-    // }, []);
 
 
 
@@ -50,7 +45,7 @@ const Shop = () => {
 
         const ids = Object.keys(storedCart);
 
-        fetch(`http://localhost:3000/productsById`, {
+        fetch(`https://amazon-server-rho.vercel.app/productsById`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

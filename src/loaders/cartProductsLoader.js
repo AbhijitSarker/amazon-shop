@@ -6,7 +6,7 @@ const cartProductsLoader = async () => {
 
     const ids = Object.keys(storedCart);
 
-    const loadedProducts = await fetch(`http://localhost:3000/productsById`, {
+    const loadedProducts = await fetch(`https://amazon-server-rho.vercel.app/productsById`, {
         method: 'POST',
         headers: {
             'content-type': 'application/json'
